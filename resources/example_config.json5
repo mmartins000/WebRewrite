@@ -1,0 +1,164 @@
+{
+  "pageRewrite_rules": [
+    {
+      "target": "whatsmyuseragent.org",
+      "rules": [
+        {
+          "enabled": true,
+          "rule": "Agent",
+          "flags": "g",
+          "replace": "Spy",
+          "comment": "Title",
+        },
+        {
+          "enabled": true,
+          "rule": "3498db",
+          "flags": "g",
+          "replace": "008000",
+          "comment": "Top and middle"
+        },
+        {
+          "enabled": true,
+          "rule": "2980b9",
+          "flags": "g",
+          "replace": "002227",
+          "comment": "Bottom"
+        }
+      ]
+    },
+    {
+      "target": "example.com",
+      "rules": [
+        {
+          "enabled": true,
+          "rule": "((\"PREMIUM_USER\") === \")true",
+          "flags": "g",
+          "replace": "$1false",
+          "comment": "Auth wall"
+        },
+        {
+          "enabled": true,
+          "rule": "(('PREMIUM_USER'))==='true'",
+          "flags": "g",
+          "replace": "$1!=='true'",
+          "comment": "Auth wall"
+        }
+      ]
+    },
+    {
+      "target": "example.com",
+      "rules": [
+        {
+          "enabled": true,
+          "rule": "0px 0px 70px",
+          "flags": "g",
+          "replace": "0px 0px 0px",
+          "comment": "Stop blurring images"
+        }
+      ]
+    }
+  ],
+  "requestRewrite_rules": [
+    {
+      "enabled": false,
+      "rule": "^(https:\/\/www.example.com\/content\/.*)$",
+      "flags": "g",
+      "replace": "https://l.facebook.com/l.php?u=$1",
+      "comment": "Load with Facebook"
+    }
+  ],
+  "userAgentRewrite_rules": [
+    {
+      "enabled": true,
+      "target": "whatsmyuseragent.org",
+      "ua": "Mozilla/5.0 (Windows NoThanks 6.3; rv:36.0) Geeko/20100101 Firefox/36.04",
+      "comment": "Testing with What's My User Agent"
+    }
+  ],
+  "localStorageRewrite_rules": [
+    {
+      "target": "example.com",
+      "rules": [
+        {
+          "enabled": true,
+          "rule": "add",
+          "key": "AUTH_USER",
+          "value": "true",
+          "comment": "JS checks this key"
+        }
+      ]
+    }
+  ],
+  "cookieRewrite_rules": [
+    {
+      "target": "example.com",
+      "rules": [
+        {
+          "enabled": true,
+          "rule": "add",
+          "key": "nsdr",
+          "value": "true",
+          "comment": "JS protection bypass"
+        }
+      ]
+    }
+  ],
+  "incognitoRewrite_rules": [
+    {
+      "enabled": true,
+      "target": "example.com",
+      "incognito": true,
+      "closecurrenttab": true,
+      "comment": "To eliminate objects in cache"
+    },
+    {
+      "enabled": true,
+      "target": "example.com",
+      "incognito": false,
+      "closecurrenttab": true,
+      "comment": ""
+    }
+  ],
+  "executeScriptRewrite_rules": [
+    {
+      "enabled": true,
+      "target": "example.com",
+      "run": "document.body.removeAttribute(\"data-overlay-status\");",
+      "comment": "Remove invisible overlay"
+    },
+    {
+      "enabled": true,
+      "target": "twitter.com",
+      "run": "  document.getElementById(\"layers\").remove(); document.querySelector(\"html\").removeAttribute(\"style\");",
+      "comment": "Remove cookie overlay"
+    }
+  ],
+  "settings": {
+    "general": {
+      "default_theme": false
+    },
+    "switches": {
+      "master": {
+        "enabled": true
+      },
+      "pageRewrite": {
+        "enabled": true
+      },
+      "requestRewrite": {
+        "enabled": true
+      },
+      "userAgentRewrite": {
+        "enabled": true
+      },
+      "cookieRewrite": {
+        "enabled": true
+      },
+      "localStorageRewrite": {
+        "enabled": true
+      },
+      "incognitoRewrite": {
+        "enabled": true
+      }
+    }
+  }
+}

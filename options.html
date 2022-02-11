@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/png" href="images/edit-rewrite.svg"/>
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self'; base-uri 'none'; form-action 'self'; img-src 'self' https://fonts.googleapis.com data: http://www.w3.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/; font-src 'self' https://fonts.gstatic.com">
+    <link rel="stylesheet" title="main" href="css/default/bootstrap.css">
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <link rel="stylesheet" href="lib/material-darker.css">
+    <link rel="stylesheet" href="lib/fold/foldgutter.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <!-- Web.ReWrite 0.1
+     Written by Marcelo Martins, exploitedbunker.com
+    -->
+</head>
+
+<body>
+
+<header id="navSection" class="navbar navbar-expand-sm flex-column flex-md-row navbar-light bg-light" style="display: block;">
+
+
+    <!-- Nav start -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+        <ul class="nav navbar-nav" id="pills-tab" role="tablist">
+
+            <!-- Icon, General settings -->
+            <li class="nav-item">
+            <a class="nav-link" href="#generalSettings" id="generalSettings-tab" role="tab"
+               data-toggle="pill" aria-haspopup="false" aria-expanded="false" aria-controls="generalSettings" aria-selected="true">
+                <img src="images/edit-rewrite.svg" alt="" width="30" height="30">
+                <!--            <span class="sr-only">(current)</span>-->
+            </a>
+            </li>
+
+            <!-- page nav bar -->
+            <li class="nav-item" id="liPageRewrite">
+                <a class="nav-link" id="pageRewrite-tab" data-toggle="pill" href="#pageRewrite" role="tab" aria-controls="pageRewrite" aria-selected="false">
+                    <i class="fas fa-tasks"></i> page.Rewrite </a>
+            </li>
+
+            <!-- request nav bar -->
+            <li class="nav-item" id="liRequestRewrite">
+                <a class="nav-link" id="requestRewrite-tab" data-toggle="pill" href="#requestRewrite" role="tab" aria-controls="requestRewrite" aria-selected="false">
+                    <i class="fas fa-stop-circle"></i> request.Rewrite</a>
+            </li>
+
+            <!-- userAgent nav bar -->
+            <li class="nav-item" id="liUserAgentRewrite">
+                <a class="nav-link" id="userAgentRewrite-tab" data-toggle="pill" href="#userAgentRewrite" role="tab" aria-controls="userAgentRewrite" aria-selected="false">
+                    <i class="fas fa-spider"></i> userAgent.Rewrite</a>
+            </li>
+
+            <!-- cookie nav bar -->
+            <li class="nav-item" id="liCookieRewrite">
+                <a class="nav-link" id="cookieRewrite-tab" data-toggle="pill" href="#cookieRewrite" role="tab" aria-controls="cookieRewrite" aria-selected="true">
+                    <i class="fas fa-plus-circle"></i> cookie.Rewrite</a>
+            </li>
+
+            <!-- localStorage nav bar -->
+            <li class="nav-item" id="liLocalStorageRewrite">
+                <a class="nav-link" id="localStorageRewrite-tab" data-toggle="pill" href="#localStorageRewrite" role="tab" aria-controls="localStorageRewrite" aria-selected="true">
+                    <i class="fas fa-cogs"></i> localStorage.Rewrite</a>
+            </li>
+
+            <!-- incognito nav bar -->
+            <li class="nav-item" id="liIncognitoRewrite">
+                <a class="nav-link" id="incognitoRewrite-tab" data-toggle="pill" href="#incognitoRewrite" role="tab" aria-controls="incognitoRewrite" aria-selected="true">
+                    <i class="fas fa-tools"></i> incognito.Rewrite</a>
+            </li>
+
+            <!-- executeScript nav bar -->
+            <li class="nav-item" id="liExecuteScriptRewrite">
+                <a class="nav-link" id="executeScriptRewrite-tab" data-toggle="pill" href="#executeScriptRewrite" role="tab" aria-controls="executeScriptRewrite" aria-selected="true">
+                    <i class="fas fa-tools"></i> executeScript.Rewrite</a>
+            </li>
+
+            <!-- Icon, Help -->
+            <!-- executeScript nav bar -->
+            <li class="nav-item" id="liHelp">
+                <a class="nav-link" id="help-tab" data-toggle="pill" href="#help" role="tab" aria-controls="help" aria-selected="true">
+                    <img src="images/help-svg.svg" alt="" width="30" height="30">
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<!--
+# #############
+Tabs
+############# #
+-->
+
+<div class="tab-content flexibox-full" id="pills-tabContent" style="display: block;">
+
+    <!-- Main: General Settings tab -->
+    <div class="tab-pane fade active show" id="generalSettings" role="tabpanel" aria-labelledby="generalSettings-tab">
+
+        <!-- Main Content: General Settings Tab Content -->
+        <div class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <div class="container">
+                <!-- Switches begin -->
+                <div class="row">
+                    <div class="col-sm-3">
+                         <h3 class="text-center">Web.Rewrite</h3>
+                         <hr>
+                         <div class="panel panel-default">
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchMaster">
+                                        <label class="custom-control-label" for="switchMaster">Master Switch</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchPageRewrite">
+                                        <label class="custom-control-label" for="switchPageRewrite">page.Rewrite</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchRequestRewrite">
+                                        <label class="custom-control-label" for="switchRequestRewrite">request.Rewrite</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchUserAgentRewrite">
+                                        <label class="custom-control-label" for="switchUserAgentRewrite">userAgent.Rewrite</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchCookieRewrite">
+                                        <label class="custom-control-label" for="switchCookieRewrite">cookie.Rewrite</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchLocalStorageRewrite">
+                                        <label class="custom-control-label" for="switchLocalStorageRewrite">localStorage.Rewrite</label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchIncognitoRewrite">
+                                        <label class="custom-control-label" for="switchIncognitoRewrite">incognito.Rewrite</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Listeners -->
+                    <div class="col-sm">
+                        <h3 class="text-center" title="For debug purposes">Listeners</h3>
+                        <hr>
+                        <div class="panel panel-default" id="panelListeners">
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <button type="button" id="btnPageAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnPageRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    page.Rewrite (onBeforeRequest)
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" id="btnRequestAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnRequestRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    request.Rewrite (onBeforeRequest)
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" id="btnUserAgentAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnUserAgentRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    userAgent.Rewrite (onBeforeSendHeaders)
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" id="btnCookieAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnCookieRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    cookie.Rewrite (onBeforeRequest)
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" id="btnLocalStorageAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnLocalStorageRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    localStorage.Rewrite (onBeforeRequest)
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" id="btnIncognitoAddListener" class="btn btn-outline-success btn-sm" >Add</button>
+                                    <button type="button" id="btnIncognitoRemoveListener" class="btn btn-outline-danger btn-sm mr-2" >Remove</button>
+                                    incognito.Rewrite (onBeforeRequest)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Switches end -->
+
+                <!-- 2nd row -->
+                <div class="row mt-3">
+                    <!-- Settings begin -->
+                    <div class="col-sm-3">
+                        <h5 class="text-center">Settings</h5>
+                        <hr>
+                        <div class="panel panel-default">
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="switchSettingsTheme">
+                                        <label class="custom-control-label" for="switchSettingsTheme">Default Theme</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Settings end -->
+
+                    <!-- File management begin -->
+                    <div class="col-sm">
+                        <h5 class="text-center">Storage</h5>
+                        <hr>
+                        <div class="panel panel-default text-center">
+                            <input type="file" id="files" name="files[]" class="btn btn-outline-secondary btn-sm" />
+                            <output id="outputList"></output>
+                            <button type="button" id="btnCodeImport" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#importCodeModal">Import</button>
+                            <button type="button" id="btnCodeExport" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#exportCodeModal">Export</button>
+
+                            <div class="panel panel-default d-none mt-3" id="importSuccessfullyDiv">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-hand-thumbs-up no-invert text-success mx-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16v-1c.563 0 .901-.272 1.066-.56a.865.865 0 0 0 .121-.416c0-.12-.035-.165-.04-.17l-.354-.354.353-.354c.202-.201.407-.511.505-.804.104-.312.043-.441-.005-.488l-.353-.354.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581 0-.211-.027-.414-.075-.581-.05-.174-.111-.273-.154-.315L12.793 9l.353-.354c.353-.352.373-.713.267-1.02-.122-.35-.396-.593-.571-.652-.653-.217-1.447-.224-2.11-.164a8.907 8.907 0 0 0-1.094.171l-.014.003-.003.001a.5.5 0 0 1-.595-.643 8.34 8.34 0 0 0 .145-4.726c-.03-.111-.128-.215-.288-.255l-.262-.065c-.306-.077-.642.156-.667.518-.075 1.082-.239 2.15-.482 2.85-.174.502-.603 1.268-1.238 1.977-.637.712-1.519 1.41-2.614 1.708-.394.108-.62.396-.62.65v4.002c0 .26.22.515.553.55 1.293.137 1.936.53 2.491.868l.04.025c.27.164.495.296.776.393.277.095.63.163 1.14.163h3.5v1H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                                </svg>
+                                File successfully imported
+                            </div>
+                            <div class="panel panel-default d-none mt-3" id="importFailedDiv">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-hand-thumbs-down no-invert text-danger mx-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28v1c.563 0 .901.272 1.066.56.086.15.121.3.121.416 0 .12-.035.165-.04.17l-.354.353.353.354c.202.202.407.512.505.805.104.312.043.44-.005.488l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.415-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.353.352.373.714.267 1.021-.122.35-.396.593-.571.651-.653.218-1.447.224-2.11.164a8.907 8.907 0 0 1-1.094-.17l-.014-.004H9.62a.5.5 0 0 0-.595.643 8.34 8.34 0 0 1 .145 4.725c-.03.112-.128.215-.288.255l-.262.066c-.306.076-.642-.156-.667-.519-.075-1.081-.239-2.15-.482-2.85-.174-.502-.603-1.267-1.238-1.977C5.597 8.926 4.715 8.23 3.62 7.93 3.226 7.823 3 7.534 3 7.28V3.279c0-.26.22-.515.553-.55 1.293-.138 1.936-.53 2.491-.869l.04-.024c.27-.165.495-.296.776-.393.277-.096.63-.163 1.14-.163h3.5v-1H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"/>
+                                </svg>
+                                File import failed
+                            </div>
+                        </div>
+                    </div>
+                    <!-- File management end -->
+                </div>
+
+                <!-- 3rd row -->
+                <div class="row mt-3">
+                    <!-- Empty begin -->
+                    <div class="col-sm-3">
+
+                    </div>
+                    <!-- Empty end -->
+                    <!-- Alerts begin -->
+                    <div class="col-sm" id="alertsDiv">
+                        <!--<h5 class="text-center">Alerts</h5>
+                        <hr>-->
+                        <div class="panel panel-default text-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle no-invert text-warning mx-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"></path>
+                            </svg>
+                            Extension not allowed in Incognito mode
+                        </div>
+                    </div>
+                    <!-- Alerts end -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End of: General Settings tab -->
+
+    <!-- Main: PageRewrite Tab -->
+    <div class="tab-pane fade" id="pageRewrite" role="tabpanel" aria-labelledby="pageRewrite-tab">
+
+        <!-- Main Content: PageRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- PageRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabPageContGeneral" role="tablist">
+                    <li class="nav-item active" id="liPageCodeTab">
+                        <a class="nav-link active" id="tabPageContCode" data-toggle="tab" href="#divPageContCode" role="tab" aria-controls="tabPageContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- PageRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabPageContContent">
+
+                <!-- PageRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divPageContCode" role="tabpanel" aria-labelledby="tabPageContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodePageEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodePageSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="pageCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="pageCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: page.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="pageThemebox" class="form-group flexibox-full">
+                            <label for="codePage" class="col-form-label"></label>
+                            <textarea id="codePage" name="codePage" class="form-control flexibox-full"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <!-- End of: PageRewrite tab -->
+
+    <!-- Main: RequestRewrite Tab -->
+    <div class="tab-pane fade" id="requestRewrite" role="tabpanel" aria-labelledby="requestRewrite-tab">
+
+        <!-- Main Content: RequestRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- RequestRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabRequestContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabRequestContCode" data-toggle="tab" href="#divRequestContCode" role="tab" aria-controls="tabRequestContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- RequestRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabRequestContContent">
+
+                <!-- RequestRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divRequestContCode" role="tabpanel" aria-labelledby="tabRequestContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeRequestEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeRequestSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="requestCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="requestCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: request.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="requestThemebox" class="form-group flexibox-full">
+                            <label for="codeRequest" class="col-form-label"></label>
+                            <textarea id="codeRequest" name="codeRequest" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <!-- End of: RequestRewrite tab -->
+
+    <!-- Main: UserAgentRewrite Tab -->
+    <div class="tab-pane fade" id="userAgentRewrite" role="tabpanel" aria-labelledby="userAgentRewrite-tab">
+
+        <!-- Main Content: UserAgentRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- UserAgentRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabUserAgentContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabUserAgentContCode" data-toggle="tab" href="#divUserAgentContCode" role="tab" aria-controls="tabUserAgentContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- UserAgentRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabUserAgentContContent">
+
+                <!-- RequestRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divUserAgentContCode" role="tabpanel" aria-labelledby="tabUserAgentContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeUserAgentEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeUserAgentSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="userAgentCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="userAgentCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: userAgent.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="userAgentThemebox" class="form-group flexibox-full">
+                            <label for="codeUserAgent" class="col-form-label"></label>
+                            <textarea id="codeUserAgent" name="codeUserAgent" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: UserAgentRewrite tab -->
+
+    <!-- Main: CookieRewrite Tab -->
+    <div class="tab-pane fade" id="cookieRewrite" role="tabpanel" aria-labelledby="cookieRewrite-tab">
+
+        <!-- Main Content: CookieRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- CookieRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabCookieContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabCookieContCode" data-toggle="tab" href="#divCookieContCode" role="tab" aria-controls="tabCookieContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CookieRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabCookieContContent">
+
+                <!-- CookieRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divCookieContCode" role="tabpanel" aria-labelledby="tabCookieContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeCookieEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeCookieSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="cookieCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="cookieCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: cookie.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="cookieThemebox" class="form-group flexibox-full">
+                            <label for="codeCookie" class="col-form-label"></label>
+                            <textarea id="codeCookie" name="codeCookie" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: CookieRewrite tab -->
+
+    <!-- Main: LocalStorageRewrite Tab -->
+    <div class="tab-pane fade" id="localStorageRewrite" role="tabpanel" aria-labelledby="localStorageRewrite-tab">
+
+        <!-- Main Content: LocalStorageRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- LocalStorageRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabLocalStorageContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabLocalStorageContCode" data-toggle="tab" href="#divLocalStorageContCode" role="tab" aria-controls="tabLocalStorageContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- LocalStorageRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabLocalStorageContContent">
+
+                <!-- LocalStorageRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divLocalStorageContCode" role="tabpanel" aria-labelledby="tabLocalStorageContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeLocalStorageEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeLocalStorageSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="localStorageCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="localStorageCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: localStorage.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="localStorageThemebox" class="form-group flexibox-full">
+                            <label for="codeLocalStorage" class="col-form-label"></label>
+                            <textarea id="codeLocalStorage" name="codeLocalStorage" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: LocalStorageRewrite tab -->
+
+    <!-- Main: IncognitoRewrite Tab -->
+    <div class="tab-pane fade" id="incognitoRewrite" role="tabpanel" aria-labelledby="incognitoRewrite-tab">
+
+        <!-- Main Content: IncognitoRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- IncognitoRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabIncognitoContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabIncognitoContCode" data-toggle="tab" href="#divIncognitoContCode" role="tab" aria-controls="tabIncognitoContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- IncognitoRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabIncognitoContContent">
+
+                <!-- IncognitoRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divIncognitoContCode" role="tabpanel" aria-labelledby="tabIncognitoContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeIncognitoEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeIncognitoSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="incognitoCodeErrorMessage" class="alert alert-danger py-1 px-2 ml-2 d-none">Error: Invalid JSON format.</div>
+                            <div id="incognitoCodeDisabledMessage" class="alert alert-warning py-1 px-2 ml-2 d-none">Warning: incognito.Rewrite is disabled.</div>
+                        </div>
+
+                        <div id="incognitoThemebox" class="form-group flexibox-full">
+                            <label for="codeIncognito" class="col-form-label"></label>
+                            <textarea id="codeIncognito" name="codeIncognito" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: IncognitoRewrite tab -->
+
+    <!-- Main: executeScriptRewrite Tab -->
+    <div class="tab-pane fade" id="executeScriptRewrite" role="tabpanel" aria-labelledby="executeScriptRewrite-tab">
+
+        <!-- Main Content: ExecuteScriptRewrite Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- ExecuteScriptRewrite Subtabs: Grid, Code -->
+            <div class="form-group">
+                <ul class="nav nav-tabs" id="tabExecuteScriptContGeneral" role="tablist">
+                    <li class="nav-item active">
+                        <a class="nav-link active" id="tabExecuteScriptContCode" data-toggle="tab" href="#divExecuteScriptContCode" role="tab" aria-controls="tabExecuteScriptContCode" aria-selected="false" aria-disabled="false">
+                            Code</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ExecuteScriptRewrite Tab Content -->
+            <div class="tab-content flexibox" id="tabExecuteScriptContContent">
+
+                <!-- ExecuteScriptRewrite Tabs, Code Tab Content -->
+                <div class="tab-pane fade show active flexibox-full" id="divExecuteScriptContCode" role="tabpanel" aria-labelledby="tabExecuteScriptContCode">
+
+                    <form class="flexibox-full" style="padding: 0.5rem 1rem;">
+
+                        <div class="form-group">
+                            <button type="button" id="btnCodeExecuteScriptEdit" class="btn btn-outline-secondary btn-sm">Edit</button>
+                            <button type="button" id="btnCodeExecuteScriptSave" class="btn btn-outline-secondary btn-sm">Save</button>
+
+                            <div id="executeScriptCodeErrorMessage" class="alert alert-danger py-1 px-2 d-none">Error: Invalid JSON format.</div>
+                        </div>
+
+                        <div id="executeScriptThemebox" class="form-group flexibox-full">
+                            <label for="codeExecuteScript" class="col-form-label"></label>
+                            <textarea id="codeExecuteScript" name="codeExecuteScript" style="display: block;"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: executeScriptRewrite tab -->
+
+    <!-- Main: help Tab -->
+    <div class="tab-pane fade" id="help" role="tabpanel" aria-labelledby="help-tab">
+
+        <!-- Main Content: Help Tab Content -->
+        <form class="flexibox" style="padding: 0.5rem 1rem;">
+
+            <!-- Help Tab Content -->
+            <div class="tab-content flexibox" id="tabHelpContContent" style="padding: 15px">
+
+                <h4>Web.Rewrite Help</h4>
+
+                <h5>Overview</h5>
+                <ul>
+                    <li>
+                        <a href="https://www.github.com/mmartins000/webrewrite/README.md">Readme at GitHub Repo</a>
+                    </li>
+                    <li>
+                        FAQ, in the last section of the Readme
+                    </li>
+                </ul>
+
+                <h5>JSON Config file</h5>
+                <ul>
+                    <li>
+                        <a href="https://www.github.com/mmartins000/webrewrite/CONFIG.md">Config File Structure at GitHub Repo</a>
+                    </li>
+                </ul>
+
+                <h5>Learn more</h5>
+                <ul>
+                    <li>
+                        <a href="https://www.w3schools.com/whatis/whatis_json.asp">What is JSON</a>
+                    </li>
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">Mozilla Dev: Regular Expressions</a>
+                    </li>
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest">Mozilla Dev: webRequest</a>
+                    </li>
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Intercept_HTTP_requests">Mozilla Dev: Intercept HTTP requests</a>
+                    </li>
+                </ul>
+
+                <h5>Test your JS Regex</h5>
+                <ul>
+                    <li>
+                        <a href="https://regex101.com/">Regex101</a>
+                    </li>
+                    <li>
+                        <a href="https://regexr.com/">RegExr</a>
+                    </li>
+                </ul>
+
+                <h5>Validate your JSON</h5>
+                <ul>
+                    <li>
+                        <a href="https://jsononline.net/json-checker">JSON Online Checker</a>
+                    </li>
+                </ul>
+            </div>
+
+        </form>
+    </div>
+    <!-- End of: help tab -->
+
+</div>
+
+<!-- CodeMirror JS begin -->
+<script src="lib/codemirror.js"></script>
+<script src="lib/mode/javascript/javascript.js"></script>
+<script src="lib/fold/foldcode.js"></script>
+<script src="lib/fold/foldgutter.js"></script>
+<script src="lib/fold/brace-fold.js"></script>
+<script src="lib/fold/indent-fold.js"></script>
+<!-- CodeMirror JS end -->
+<script src="js/options.js"></script>
+<script src="js/options-ready.js"></script>
+</body>
+</html>

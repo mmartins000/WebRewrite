@@ -1,0 +1,55 @@
+{
+  "description": "A web request and response interceptor that uses Javascript regex and user-created functions to modify content on-the-fly.",
+  "author": "Marcelo Martins",
+  "homepage_url": "https://github.com/mmartins000/WebRewrite/",
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "images/edit-rewrite.svg",
+      "32": "images/edit-rewrite.svg",
+      "48": "images/edit-rewrite.svg"
+    },
+    "default_title": "Web.Rewrite",
+    "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "webrewrite-dev@exploitedbunker.com",
+      "strict_min_version": "57.0"
+    }
+  },
+  "icons": {
+    "16": "images/edit-rewrite.svg",
+    "48": "images/edit-rewrite.svg",
+    "96": "images/edit-rewrite.svg"
+  },
+  "manifest_version": 2,
+  "name": "WebRewrite",
+  "short_name": "WebRewrite",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true,
+    "browser_style": true
+  },
+  "incognito": "spanning",
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "contextMenus",
+    "privacy",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "version": "0.1.0",
+  "web_accessible_resources": [
+    "resources/ua_strings.json"
+  ]
+}
