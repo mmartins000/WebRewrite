@@ -2,13 +2,14 @@
   "pageRewrite_rules": [
     {
       "target": "whatsmyuseragent.org",
+      "enabled": true,
       "rules": [
         {
           "enabled": true,
           "rule": "Agent",
           "flags": "g",
-          "replace": "Spy",
-          "comment": "Title",
+          "replace": "Runner",
+          "comment": "Title"
         },
         {
           "enabled": true,
@@ -28,25 +29,27 @@
     },
     {
       "target": "example.com",
+      "enabled": true,
       "rules": [
         {
           "enabled": true,
           "rule": "((\"PREMIUM_USER\") === \")true",
           "flags": "g",
           "replace": "$1false",
-          "comment": "Auth wall"
+          "comment": "Paywall"
         },
         {
           "enabled": true,
           "rule": "(('PREMIUM_USER'))==='true'",
           "flags": "g",
           "replace": "$1!=='true'",
-          "comment": "Auth wall"
+          "comment": "Paywall"
         }
       ]
     },
     {
       "target": "example.com",
+      "enabled": true,
       "rules": [
         {
           "enabled": true,
@@ -60,11 +63,19 @@
   ],
   "requestRewrite_rules": [
     {
-      "enabled": false,
-      "rule": "^(https:\/\/www.example.com\/content\/.*)$",
-      "flags": "g",
-      "replace": "https://l.facebook.com/l.php?u=$1",
-      "comment": "Load with Facebook"
+      "target": "ft.com",
+      "enabled": true,
+      "rules": [
+        {
+          "enabled": false,
+          "url": {
+            "rule": "^(https:\/\/www.ft.com\/content\/.*)$",
+            "flags": "g",
+            "replace": "https://l.facebook.com/l.php?u=$1"
+          },
+          "comment": "Load with Facebook"
+        }
+      ]
     }
   ],
   "userAgentRewrite_rules": [
@@ -72,17 +83,18 @@
       "enabled": true,
       "target": "whatsmyuseragent.org",
       "ua": "Mozilla/5.0 (Windows NoThanks 6.3; rv:36.0) Geeko/20100101 Firefox/36.04",
-      "comment": "Testing with What's My User Agent"
+      "comment": "Test"
     }
   ],
   "localStorageRewrite_rules": [
     {
       "target": "example.com",
+      "enabled": true,
       "rules": [
         {
           "enabled": true,
           "rule": "add",
-          "key": "AUTH_USER",
+          "key": "PREMIUM_USER",
           "value": "true",
           "comment": "JS checks this key"
         }
@@ -92,6 +104,7 @@
   "cookieRewrite_rules": [
     {
       "target": "example.com",
+      "enabled": true,
       "rules": [
         {
           "enabled": true,
@@ -123,13 +136,13 @@
     {
       "enabled": true,
       "target": "example.com",
-      "run": "document.body.removeAttribute(\"data-overlay-status\");",
+      "run": "document.body.removeAttribute(\"data-paywall-overlay-status\");",
       "comment": "Remove invisible overlay"
     },
     {
       "enabled": true,
       "target": "twitter.com",
-      "run": "  document.getElementById(\"layers\").remove(); document.querySelector(\"html\").removeAttribute(\"style\");",
+      "run": "document.getElementById(\"layers\").remove(); document.querySelector(\"html\").removeAttribute(\"style\");",
       "comment": "Remove cookie overlay"
     }
   ],

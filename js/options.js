@@ -160,6 +160,8 @@ function progressiveRead(file) {
                 let decoded = dec.decode(Uint8Arr);
                 // if (file.size < 15000) {
                 if (isValidJSONString(decoded)) {
+                    // isValidJSONString() expects a JSON string
+
                     // KNOWN BUG: escaped chars get unescaped after JSON.parse()
                     // Tried to use a reviver; didn't work as expected.
                     // Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse#using_the_reviver_parameter
@@ -324,6 +326,7 @@ function disableSaveAddTargetButtons() {
 }
 
 function isValidJSONString(json_string) {
+    // Receives JSON string
     try {
         JSON.parse(json_string);
     } catch (e) {

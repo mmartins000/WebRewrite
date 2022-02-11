@@ -230,6 +230,15 @@ function loadDefaultRules() {
     request.open('GET', json_ua);
     request.responseType = 'json';
     request.send();
+    Promise.resolve(request.onload = function () {
+        // pageRewriteRules = JSON.parse(request.response);
+        let content_json_str = JSON.stringify(request.response)
+        if (isValidJSONString(content_json_str)) {
+            sendStorageMessage("storage_import", content_json_str);
+            console.log("Loaded default rules.");
+        }
+    })
+        .then(setListeners())
     request.onload = function () {
         // pageRewriteRules = JSON.parse(request.response);
         let content_json_str = JSON.stringify(request.response)
@@ -237,8 +246,6 @@ function loadDefaultRules() {
             sendStorageMessage("storage_import", content_json_str);
         }
     };
-    console.log("Loaded default rules.");
-    setListeners();
 }
 
 function addListenerPage() {
@@ -501,16 +508,16 @@ function requestRewrite(details) {
 
                             redirUrl = urlAddress.replace(RegExp(url_rule, url_flags), url_replace);
                         }
-
-                        let postData_rule = config[i]["rules"][r]["postData"]["rule"];
-                        if (postData_rule) {
-                            let postData_flags = config[i]["rules"][r]["postData"]["flags"];
-                            let postData_replace = config[i]["rules"][r]["postData"]["replace"];
-
-                            let request_postData = details.requestBody;
-                            request_postData = request_postData.replace(RegExp(postData_rule, postData_flags), postData_replace);
-                            return {requestBody: details.requestBody};
-                        };
+                        // TODO for a next version. This snippet won't work as it is.
+                        // let postData_rule = config[i]["rules"][r]["postData"]["rule"];
+                        // if (postData_rule) {
+                        //     let postData_flags = config[i]["rules"][r]["postData"]["flags"];
+                        //     let postData_replace = config[i]["rules"][r]["postData"]["replace"];
+                        //
+                        //     let request_postData = details.requestBody;
+                        //     request_postData = request_postData.replace(RegExp(postData_rule, postData_flags), postData_replace);
+                        //     return {requestBody: details.requestBody};
+                        // };
 
                         if (redirUrl !== urlAddress) {
                             changeBool = true;

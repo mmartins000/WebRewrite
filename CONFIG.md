@@ -158,11 +158,6 @@ Example code snippet:
           "flags": "g",
           "replace": "https://l.facebook.com/l.php?u=$1"
         },
-        "postData": {
-          "rule": "",
-          "flags": "g",
-          "replace": ""
-        },
         "comment": "Load with Facebook"
       }
     ]
@@ -172,7 +167,6 @@ Example code snippet:
 
 Parameters `rule`, `flags` and `replace` are part of the regular expression. You can learn more at [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
 
-Note: Filling `url` and `postData` sections is optional. You may opt to fill one or the other. 
 
 Acceptable values:
 ```text
@@ -181,12 +175,7 @@ Acceptable values:
   "rule": [pattern string in double quotes],
   "flags": [flag string in double quotes],
   "replace": [pattern string in double quotes]
-},
-"postData": {
-  "rule": [pattern string in double quotes],
-  "flags": [flag string in double quotes],
-  "replace": [pattern string in double quotes]
-},
+}
 ```
 
 ### userAgent.Rewrite rules

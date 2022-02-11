@@ -44,7 +44,7 @@ If you download the `webrewrite-[version]-fx.xpi` file from the `web-ext-artifac
 
 [https://extensionworkshop.com/documentation/publish/distribute-sideloading/#install-addon-from-file](https://extensionworkshop.com/documentation/publish/distribute-sideloading/#install-addon-from-file)
 
-You will need the [example config file](https://github.com/mmartins000/WebRewrite/resources/example_config.json5) in the Github repo. For more information, check [CONFIG.md](https://github.com/mmartins000/WebRewrite/CONFIG.md) file.
+You will need the [example config file](https://github.com/mmartins000/WebRewrite/blob/master/resources/example_config.json5) in the Github repo. For more information, check [CONFIG.md](https://github.com/mmartins000/WebRewrite/blob/master/CONFIG.md) file.
 
 ## Configuration
 
@@ -52,7 +52,7 @@ You will need the [example config file](https://github.com/mmartins000/WebRewrit
 - Create regex rules to replace HTML/CSS/JS code as you like
 - You can test your regex rules on any online regex tester (check the help tab in the Options page for some of them)
 
-The following sections contain a brief explanation of the functionalities. For the details, please check [CONFIG.md](CONFIG.md).
+The following sections contain a brief explanation of the functionalities. For the details, please check [CONFIG.md](https://github.com/mmartins000/WebRewrite/blob/master/resources/example_config.json5).
 
 ### page.Rewrite
 
@@ -115,7 +115,7 @@ To learn how to pack your Firefox extension, click [here](https://extensionworks
 
 ### Popup window
 
-<img src="screenshots/webrewrite-popup.png" alt="Popup window" width="50%"/>
+<img src="screenshots/webrewrite-popup.png" alt="Popup window" width="33%"/>
 
 ### Options window
 
@@ -165,5 +165,4 @@ That is how you save and load your rules (the JSON content in each section: page
 
 9. I lost my config and don't know how to build one from scratch. Where can I find the structure for the config file?
 
-Use the [example config file](resources/example_config.json5).
-
+Use the [example config file](https://github.com/mmartins000/WebRewrite/blob/master/resources/example_config.json5).
