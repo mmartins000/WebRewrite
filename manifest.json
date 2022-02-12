@@ -48,7 +48,7 @@
     "webRequestBlocking",
     "<all_urls>"
   ],
-  "version": "0.1.3",
+  "version": "0.1.4",
   "web_accessible_resources": [
     "resources/ua_strings.json",
     "resources/example_config.json5"

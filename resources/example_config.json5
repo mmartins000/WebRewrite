@@ -63,13 +63,13 @@
   ],
   "requestRewrite_rules": [
     {
-      "target": "ft.com",
+      "target": "example.com",
       "enabled": true,
       "rules": [
         {
           "enabled": false,
           "url": {
-            "rule": "^(https:\/\/www.ft.com\/content\/.*)$",
+            "rule": "^(https:\/\/www.example.com\/content\/.*)$",
             "flags": "g",
             "replace": "https://l.facebook.com/l.php?u=$1"
           },
